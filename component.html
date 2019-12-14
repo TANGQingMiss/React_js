@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Tryrun1</title>
+    <style>
+        #wrap { height: 100px; background-color: #b0deff; }
+    </style>
 </head>
 <body>
     <div id="container"></div>
     <div id="app"></div>
+    <div id="property"></div>
 
     <script src="https://cdn.staticfile.org/react/16.8.6/umd/react.development.js"></script>
     <script src="https://cdn.staticfile.org/react-dom/16.8.6/umd/react-dom.development.js"></script>
@@ -33,6 +37,37 @@
         ReactDOM.render(
             <MyComponent />,document.getElementById("app")
         );
+    </script>
+
+<!-- property with style -->
+<!--     <script type="text/babel">
+        const w = 200;
+        const ele = (
+            <div
+                style={{width: w + "px", height: "100px", backgroundColor: "#ffc5a1"}}
+            ></div>
+        );
+
+        ReactDOM.render(
+            ele,
+            document.getElementById("app")
+        );
+    </script> -->
+
+    <script type="text/babel">
+        let ele = <div id="wrap" className="w-100"></div>;
+
+        ReactDOM.render(
+            ele,
+            document.getElementById("property"),
+            setWidth
+        );
+
+        function setWidth() {
+            const dom = document.getElementById("wrap");
+            const width = dom.className.split("-")[1];
+            dom.style.width = width + "px";
+        }
     </script>
 
 </body>
