@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tryrun1</title>
+</head>
+<body>
+    <div id="container"></div>
+    <div id="app"></div>
+
+    <script src="https://cdn.staticfile.org/react/16.8.6/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/7.0.0-beta.3/babel.js"></script>
+	<script type="text/babel">
+        const element = <h1>Hello, world</h1>;
+
+        ReactDOM.render(
+            element, 
+            document.getElementById('container')
+        );
+    </script>
+
+    <script type="text/babel">
+        function MyComponent(){
+        return (
+                <div>
+                    <h1>my component</h1>
+                    <p>with no property, no state, the simplist component</p>
+                </div>
+            );
+        }
+
+        ReactDOM.render(
+            <MyComponent />,document.getElementById("app")
+        );
+    </script>
+
+</body>
+</html>
