@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>class property component</title>
+    <style>
+        #wrap { height: 100px; background-color: #b0deff; }
+    </style>
+
+    <style>
+        * { margin: 0; padding: 0; }
+        body{
+            padding: 0 16px;
+        }
+        .blog-post {
+            padding-bottom: 16px;
+        }
+        .blog-post .blog-post-title {
+            margin-left: 72px;
+            padding: 12px 0;
+            font-size: 20px;
+        }
+        .blog-post .blog-post-content {
+            margin-left: 72px;
+            font-size: 16px;
+        }
+        .blog-post .authorInfo {
+            float: left;
+        }
+        .blog-post .authorInfo img {
+            display: block;
+            width: 64px;
+            height: 64px;
+        }
+        .blog-post .authorInfo-name {
+            margin-top: 6px;
+            color: rgba(0,0,0,.45);
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="app"></div>
+    <div id="app2"></div>
+
+    <script src="https://cdn.staticfile.org/react/16.8.6/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/7.0.0-beta.3/babel.js"></script>
+    <!-- two ways of creating component, function or class -->
+    <script type="text/babel">
+        function Welcome(props){
+            return <h1>{props.name} Bonjour!</h1>
+        }
+        ReactDOM.render(
+            <Welcome name="HJX" />,document.getElementById('app')
+        );
+    </script>
+
+    <script type="text/babel">
+        class Welcome2 extends React.Component{
+            render(){
+            return <h1>{this.props.name}Bonjour hjx!</h1>
+            }
+        }
+
+        ReactDOM.render(
+            <Welcome2 name="hhh" />,document.getElementById('app2')
+        );
+    </script>
+
+    <!-- example: use one component for severals time  -->
+    <div id="blog"></div>
+    <script type="text/babel">
+        class Blogpost extends React.Component {
+            render(){
+                return (
+                    <div className="blog-post">
+                        <div className="authorInfo">
+                            <img className="avatar"
+                            src={this.props.author.avatarUrl}
+                            alt={this.props.author.name}
+                            />
+                            <div className="authorInfo-name">{this.props.author.name}</div>
+                        </div>
+                        <h1 className="blog-post-title">{this.props.title}</h1>
+                        <div className="blog-post-content">{this.props.content}</div>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+                <Blogpost
+                    author={{
+                    name:"qing",
+                    avatarUrl:"https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                }}
+                title="Moi et avatar"
+                content = "Un ejemplo" />,
+            document.getElementById("blog")
+        )
+    </script>
+    <!-- nest component -->
+
+  <!--   <Blogpost title="Moi et Toi" content="Nous sommes des amoureux" />
+    <Blogpost title="Moi" content="Belle" />
+    <Blogpost title="Toi" content="guapo" /> -->
+  <!--   use a series of components -->
+
+
+</body>
+</html>
