@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>event use in components</title>
+    <script src="https://cdn.staticfile.org/react/16.8.6/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/7.0.0-beta.3/babel.js"></script>
+
+    <!-- for event in React, use small camel like camelCase -->
+<body>
+    <div id="eventTest1"></div>
+    <div id="eventTest2"></div>
+    <div id="eventTest3"></div>
+    <script type="text/babel">
+        function handleClick(){
+            alert("click me");
+        }
+
+        ReactDOM.render(
+            <button onClick={handleClick}>Try to click me</button>,
+            document.getElementById("eventTest1")
+        )
+    </script>
+    <!-- you can't have onClick = {handleClick()}!! -->
+
+    <!--in class component, we can regard the event function as a component, private method-->
+
+    <script type="text/babel">
+        class App extends React.Component{
+            constructor(){
+                super();
+                this.handleClick2 = function(){
+                    alert("click me twice");
+                }
+            }
+
+            render(){
+                return <button onClick={this.handleClick2}>Try to click me 2</button>
+            }
+
+        }
+
+        ReactDOM.render(
+            <App />,document.getElementById("eventTest2")
+        )
+    </script>
+
+    <!-- or else, we can make it become a public method, not only for the component instance-->
+
+      <script type="text/babel">
+        class App extends React.Component {
+            handleClick3() {
+                alert("try 3");
+            }
+
+            render(){
+                return <button onClick={this.handleClick3}>click 3</button>
+            }
+        }
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById("eventTest3")
+        );
+    </script>
+</body>
+
+</html>
