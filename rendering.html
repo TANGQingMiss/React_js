@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>render use in components</title>
+    <script src="https://cdn.staticfile.org/react/16.8.6/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/7.0.0-beta.3/babel.js"></script>
+
+    <!-- for event in React, use small camel like camelCase -->
+<body>
+    <div id="renderByCondition"></div>
+    <div id="renderList"></div>
+    <div id="domTreatment"></div>
+    <div id="refDom"></div>
+    
+
+    <script type="text/babel">
+        function Greeting (props) {
+            const isLoggedIn = props.isLoggedIn;
+            if (isLoggedIn) {
+                return <h1>欢迎回来~</h1>
+            } else {
+                return <h1>请先登录</h1>
+            }
+        }
+
+        class LoginControl extends React.Component {
+            constructor(props){
+                super(props);
+                this.state = {
+                    isLoggedIn: this.props.isLoggedIn
+                }
+            }
+
+            handleLogin = () => {
+                this.setState({ isLoggedIn: true })
+            }
+
+            handleLogout = () => {
+                this.setState({ isLoggedIn: false })
+            }
+
+            render(){
+                const {isLoggedIn} = this.state;
+                let button;
+
+                if (isLoggedIn) {
+                    button = <button onClick={this.handleLogout}>注销</button>
+                } else {
+                    button = <button onClick={this.handleLogin}>登录</button>
+                }
+
+                return (
+                    <div>
+                        <Greeting isLoggedIn={isLoggedIn} />
+                        { button }
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <LoginControl isLoggedIn={false} />,
+            document.getElementById("renderByCondition")
+        );
+    </script>
+
+    <script type="text/babel">
+        
+        const number = [1,2,3,4,5];
+        const listItems = number.map(number =>
+            <li>{number}</li>
+        );
+
+        ReactDOM.render(
+            <ul>{listItems}</ul>,
+            document.getElementById("renderList")
+        );
+
+    </script>
+
+    <script type="text/babel">
+        class BtnGroup extends React.Component {
+            handleClick = (e) => {
+                if (e.target.tagName !== "BUTTON") return;
+                
+                e.currentTarget.style.backgroundColor = "skyblue";
+                e.target.innerText = "你点到我了";
+
+                console.log(e.currentTarget);
+                console.log(e.target);
+            }
+
+            render() {
+                return (
+                    <div className="btn-group" onClick={this.handleClick}>
+                        <button>按钮1</button>
+                        <button>按钮2</button>
+                        <button>按钮3</button>
+                        <p>Tips：可在开发者控制台中查看打印结果（F12）</p>
+                    </div>  
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <BtnGroup />,
+            document.getElementById('domTreatment')
+        );
+    </script>
+
+    <script type="text/babel">
+        class BtnGroup extends React.Component {
+            constructor(props){
+                super(props);
+                this.myRef = React.createRef();
+            }
+
+            handleClick = () => {
+                const wrapEle = this.myRef.current;
+                wrapEle.style.backgroundColor = "skyblue";
+
+                console.log(wrapEle);
+            }
+
+            render() {
+                return (
+                    <div className="btn-group" ref={this.myRef}>
+                        <button onClick={this.handleClick}>戳我</button>
+                        <p>Tips：可在开发者控制台中查看打印结果（F12）</p>
+                    </div>  
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <BtnGroup />,
+            document.getElementById('refDom')
+        );
+    </script>
+
+
+  
+</body>
+
+</html>
