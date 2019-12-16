@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>state use in components</title>
+    <script src="https://cdn.staticfile.org/react/16.8.6/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/7.0.0-beta.3/babel.js"></script>
+
+    <!-- for event in React, use small camel like camelCase -->
+<body>
+    <div id="stateTest1"></div>
+    <div id="eventTest2"></div>
+    <div id="eventTest3"></div>
+    <script type="text/babel">
+        
+        class Counter extends React.Component{
+
+            constructor(props){
+                super(props);
+                this.state = {
+                    count : this.props.count || 0
+                }
+            }
+
+            handleClick = () => {
+                let {count} = this.state;
+                this.setState({count: ++count})
+            }
+
+            render(){
+                return <button onClick={this.handleClick}>you have clicked {this.state.count} times </button>
+            }
+        }
+
+        ReactDOM.render(
+            <Counter />,
+            document.getElementById("stateTest1")
+        );
+
+
+
+    </script>
+  
+  
+</body>
+
+</html>
