@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>life expectancy in React.js</title>
+    <script src="https://cdn.staticfile.org/react/16.8.6/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/7.0.0-beta.3/babel.js"></script>
+</head>
+<body>
+
+	<div id="start">
+		<!-- component load -->
+	</div>
+
+	<div id="update_end">
+		<!-- component update -->
+		<!-- component unload -->
+	</div>
+
+
+	<script type="text/babel">
+		class HelloWorld extends React.Component{
+			constructor(props){
+				super(props);
+				console.log("1. construction function")
+				this.state = {};
+				console.log("2. set state")
+			}
+
+			static defaultProps = {
+				name: "React"
+			}
+
+			componentWillMount(){
+				console.log("3. use componentWillMount before the first rendering")
+			}
+
+			render(){
+				console.log("4. render components");
+				return(
+					<div>
+						<div>{this.props.name}</div>
+					</div>
+				)
+			}
+
+			componentDidMount(){
+				console.log("5. after render ,use componentDidMount")
+			}
+		}
+
+		ReactDOM.render(
+			<HelloWorld />,document.getElementById("start")
+		);
+	</script>
+
+	<script type="text/babel">
+		class HelloWorldFather extends React.Component{
+			constructor(props){
+				super(props);
+				this.updateChildProps = this.updateChildProps.bind(this);
+				this.state = { 
+					name: "React" 
+				}
+			}
+
+			updateChildProps(){
+				this.setState({
+					name: "Vue"
+				})
+			}
+
+			render(){
+				return(
+					<div>
+						<HelloWorldChild name={this.state.name}></HelloWorldChild>
+						<button onClick={this.updateChildProps}>update child components</button>
+					</div>
+				)
+			}
+		}
+
+		class HelloWorldChild extends React.Component{
+			constructor(props){
+				super(props);
+				console.log("1. constructor")
+				console.log("2. set state")
+			}
+
+			componentWillMount(){
+				console.log("3. WillMount before first rendering")
+			}
+
+			componentWillReceiveProps(){
+				console.log("6. father -> child, use this function")
+			}
+
+			shouldComponentUpdate(){
+				console.log("7. whether we need to render again")
+				return true;
+			}
+
+			componentWillUpdate(){
+				console.log("8. receiving nre props/state, use this function")
+			}
+
+			//upload
+			delComponent(){
+				ReactDOM.unmountComponentAtNode(document.getElementById("update_end"));
+			}
+
+			render(){
+				console.log("4. rendering components");
+				return(
+					<div>
+						<div>{this.props.name}</div>
+						<button onClick={this.delComponent}>unload component</button>
+					</div>					
+				)
+			}
+
+			componentDidMount(){
+				console.log("5. after render")
+			}
+
+			componentDidUpdate(){
+				console.log("9. after new rendering ,use this function")
+			}
+
+			componentWillUnmount(){
+				console.log("10. component un-loaded")
+			}
+		}
+
+		ReactDOM.render(
+			<HelloWorldFather />,document.getElementById("update_end")
+		);
+	</script>
+
+
+</body>
+</html>
