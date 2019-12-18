@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Log in</title>
+    <style>
+        body{
+            background-color: #cccccc;
+        }
+    </style>
+</head>
+<body>
+
+    <script src="https://cdn.staticfile.org/react/16.8.6/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/7.0.0-beta.3/babel.js"></script>
+
+    <div id="root"></div>
+	<script type="text/babel">
+        class Login extends React.Component{
+            constructor(props){
+                super(props);
+                this.login = this.login.bind(this);
+                this.check = this.check.bind(this);
+                this.state = {
+                    userName:"admin",
+                    passWord:"admin"
+                }
+            }
+
+            login(){
+                if(this.refs.user.value===this.state.userName&&this.refs.pwd.value===this.state.passWord) alert("login sucessfully");
+                else alert("Failed in login");
+            }
+
+            check(){
+                if(this.refs.user.value.length > 10){
+                    alert("two long, input again");
+                }
+            }
+
+            render(){
+                var loginStyle = {
+                    width:400,
+                    height:250,
+                    background:"#FFF",
+                    margin:"200px auto",
+                    position:"relative"
+                };
+
+                var hStyle = {
+                    position:"absolute",
+                    left:95,
+                    top:-40,
+                    padding:0,
+                    margin:50,
+                };
+
+                var pStyle = {
+                    textAlign:"center"
+                };
+
+                var userStyle = {
+                    width:200,
+                    height:30,
+                    border:"solid #ccc 1px",
+                    borderRadius:3,
+                    paddingLeft:32,
+                    marginTop:50,
+                };
+
+                var pwdStyle = {
+                    width:200,
+                    height:30,
+                    border:"solid #ccc 1px",
+                    borderRadius:3,
+                    paddingLeft:32,
+                    marginTop:5,
+
+                };
+
+                var buttonStyle = {
+                    width:232,
+                    height:30,
+                    background:"#E9E9E9",
+                    border:"solid #ccc 1px",
+                    borderRadius:3,
+                    textAlign:"center",
+                };
+
+                return(
+                    <div style={loginStyle}>
+                        <h1 style={hStyle}>Log in</h1>
+                        <div>
+                            <p style = {pStyle}><input type = "text" style={userStyle} placeholder="user name" ref="user" onChange={this.check}/></p>
+                            <p style = {pStyle}><input type = "password" style={pwdStyle} placeholder="password" ref="pwd" /></p>
+                            <p style = {pStyle}><button style={buttonStyle} onClick={this.login}>Log in</button></p>
+                        </div>
+                    </div>
+
+                )
+            }
+        }
+
+        ReactDOM.render(<Login />,document.getElementById("root"));
+    </script>
+ 
+
+</body>
+</html>
