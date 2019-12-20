@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>learn to use dumb component and smart component</title>
+	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+</head>
+<body>
+	<script src="https://cdn.staticfile.org/react/16.8.6/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/7.0.0-beta.3/babel.js"></script>
+    <script src="jquery-3.4.1.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+    	
+    	class CommentList extends React.Component{
+    		constructor(props){
+    			super(props);
+    		}
+
+    		render(){
+    			console.log(this.props);
+    			return(
+    			<ul>
+    				{this.props.languages.map(function(language){
+    					return (
+    						<ul key={language.id}>
+    							<li>{language.name}</li>
+    						</ul>
+    					);
+    				})}
+    			</ul>
+    			)
+    		}
+    	}
+
+    	class CommentContainer extends React.Component{
+    		constructor(){
+    			super();
+    			this.state = {
+    				languages:[]
+    			};
+    		}
+
+    		componentDidMount(){
+    			$.ajax({
+    				url:"data.json",
+    				crossDomain: true,
+    				dataType:'json', 
+    				success: function(languages){
+    					this.setState({languages:languages});
+    				}.bind(this)
+    			});
+    		}
+
+    		render(){
+    			return <CommentList languages={this.state.languages} />
+    		}
+    	}
+
+    	ReactDOM.render(<CommentContainer />, document.getElementById("root"));
+
+    </script>
+
+</body>
+</html>
