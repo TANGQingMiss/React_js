@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>high level components</title>
+</head>
+<body>
+
+	<script src="https://cdn.staticfile.org/react/16.8.6/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/7.0.0-beta.3/babel.js"></script>
+    <script type="text/javascript">
+    	//use of higher function
+    	function add(x,y){
+    		return x+y;
+    	}
+
+    	function higherFunc(x,y,f){
+    		return f(x,y);
+    	}
+
+    	console.log(higherFunc(1,2,add));
+    </script>
+
+    <!-- const EnhancedComponent = higherOrderComponent(WrappedComponent) -->
+    <div id="root"></div>
+    <script type="text/babel">
+    	function HOC(WrappedComponent){
+    		return class extends React.Component{
+    			render(){
+    				return(
+    					<div>
+    						<h1>this is title</h1>
+    						<WrappedComponent />
+    					</div>
+    				)
+    			}
+    		}
+    	}
+
+    	class HelloWorld extends React.Component{
+    		render(){
+    			return <div>this is content</div>
+    		}
+    	}
+
+    	var NewComponent = HOC(HelloWorld);
+    	ReactDOM.render(<NewComponent />,document.getElementById("root"));
+    </script>
+
+    <!-- Proxy Proxy PP -->
+        <div id="pp"></div>
+    <script type="text/babel">
+    	function HOC2(WrappedComponent){
+    		return class extends React.Component{
+    			render(){
+    				const newProps={
+    					name:"Hello React",
+    					language:"JavaScript"
+    				}
+
+    				return(
+    					<div>
+    						<h1>this is title for pp</h1>
+    						<WrappedComponent {...this.props} {...newProps} />
+    					</div>
+    				)
+    			}
+    		}
+    	}
+
+    	class HelloWorld2 extends React.Component{
+	    	static defaultProps = {
+	    		name: "Hello World!"
+	    	}
+
+	    	componentDidMount(){
+	    		console.log(this.props);
+	    	}
+
+	    	render(){
+	    		return <div>{this.props.name}</div>
+	    	}
+    	}
+
+    	var NewComponent2 = HOC2(HelloWorld2);
+    	ReactDOM.render(<NewComponent2 />,document.getElementById("pp"));
+    </script>
+
+
+</body>
+</html>
