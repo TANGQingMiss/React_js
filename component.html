@@ -11,6 +11,7 @@
     <div id="container"></div>
     <div id="app"></div>
     <div id="property"></div>
+    <div id="noState"></div>
 
     <script src="https://cdn.staticfile.org/react/16.8.6/umd/react.development.js"></script>
     <script src="https://cdn.staticfile.org/react-dom/16.8.6/umd/react-dom.development.js"></script>
@@ -69,6 +70,24 @@
             dom.style.width = width + "px";
         }
     </script>
+
+    <!-- another way to write react component -->
+    <script type="text/babel">
+        const NoState = (props)=>{
+            return(
+                <div>
+                    hello {props.name}
+                </div>
+            )
+        }
+
+        ReactDOM.render(
+            <NoState name="only props" />,
+            document.getElementById("noState")
+        );
+    </script>
+
+
 
 </body>
 </html>
