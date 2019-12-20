@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>use of setState</title>
+</head>
+<body>
+
+	<script src="https://cdn.staticfile.org/react/16.8.6/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/7.0.0-beta.3/babel.js"></script>
+
+    <div id="root"></div>
+    <div id="proveAsync"></div>
+
+    <script type="text/babel">
+    	class Hello extends React.Component{
+    		constructor(){
+	    		super();
+	    		this.state={
+	    			isLiked:true
+	    		}
+	    		this.changeState = this.changeState.bind(this);
+    		}
+
+    	changeState(){
+    		this.setState({
+    		isLiked :!this.state.isLiked
+    		})
+    	}
+
+    	render(){
+	    		return(
+	    			<button onClick={this.changeState}>{this.state.isLiked?"Pour":"Contre"}</button>
+	    		)
+    		}
+    	}
+
+    	ReactDOM.render(<Hello name="React" />, document.getElementById("root"));
+    </script>
+
+    <!-- for setState, two parameters setState(updater, [callback]) -->
+
+    <script type="text/babel">
+        class HelloWorld extends React.Component{
+
+            constructor(props){
+                super(props);
+                this.state = {
+                    count:0
+                };
+                this.showState = this.showState.bind(this);
+            }
+
+            componentDidMount(){
+                this.setState({
+                    count:this.state.count+1
+                });
+                this.setState({
+                    count:this.state.count+1
+                });
+                this.setState({
+                    count:this.state.count+1
+                });
+                console.log("after setState, print immediately the value of state: "+this.state.count);
+            }
+
+            showState(){
+                console.log("state value in showState: "+this.state.count);
+            }
+
+            render(){
+                return(
+                    <button onClick={this.showState}>show state now</button>
+                )
+            }
+        }
+
+
+        ReactDOM.render(<HelloWorld />, document.getElementById("proveAsync"));
+    </script>
+</body>
+</html>
