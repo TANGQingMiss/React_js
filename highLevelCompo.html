@@ -48,7 +48,7 @@
     </script>
 
     <!-- Proxy Proxy PP -->
-        <div id="pp"></div>
+    <div id="pp"></div>
     <script type="text/babel">
     	function HOC2(WrappedComponent){
     		return class extends React.Component{
@@ -84,6 +84,42 @@
 
     	var NewComponent2 = HOC2(HelloWorld2);
     	ReactDOM.render(<NewComponent2 />,document.getElementById("pp"));
+    </script>
+
+    <!-- inheritance inversion II -->
+    <div id="ii"></div>
+    <script type="text/babel">
+        function HOC3(WrappedComponent){
+            return class extends React.Component{
+                    componentDidMount(){
+                        this.setState({
+                            isShow:false 
+                        })
+                    }
+                    
+                    render(){
+                        return super.render();
+                    }
+            }
+        }
+        
+        class HelloWorld3 extends React.Component{
+            constructor(){
+                super();
+                this.state={
+                    isShow:true
+                }
+
+            }
+
+            render(){
+                 console.log(this.state)
+                 return <div>{this.state.isShow?"yes":"no"}</div>   
+            }
+        }
+
+        var NewComponent3 = HOC3(HelloWorld3);
+        ReactDOM.render(<NewComponent3 />,document.getElementById("ii"));
     </script>
 
 
